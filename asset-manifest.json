@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/ponggame/static/css/main.77eec57a.chunk.css",
+    "main.js": "/ponggame/static/js/main.a14c7b84.chunk.js",
+    "main.js.map": "/ponggame/static/js/main.a14c7b84.chunk.js.map",
+    "runtime-main.js": "/ponggame/static/js/runtime-main.142d7881.js",
+    "runtime-main.js.map": "/ponggame/static/js/runtime-main.142d7881.js.map",
+    "static/js/2.39cfe338.chunk.js": "/ponggame/static/js/2.39cfe338.chunk.js",
+    "static/js/2.39cfe338.chunk.js.map": "/ponggame/static/js/2.39cfe338.chunk.js.map",
+    "index.html": "/ponggame/index.html",
+    "precache-manifest.3594d81925a625409745ea49b5cf0c52.js": "/ponggame/precache-manifest.3594d81925a625409745ea49b5cf0c52.js",
+    "service-worker.js": "/ponggame/service-worker.js",
+    "static/css/main.77eec57a.chunk.css.map": "/ponggame/static/css/main.77eec57a.chunk.css.map",
+    "static/js/2.39cfe338.chunk.js.LICENSE.txt": "/ponggame/static/js/2.39cfe338.chunk.js.LICENSE.txt",
+    "static/media/ball-incoming.mp3": "/ponggame/static/media/ball-incoming.09c537af.mp3",
+    "static/media/ball-outgoing.mp3": "/ponggame/static/media/ball-outgoing.177649ca.mp3",
+    "static/media/game-over.mp3": "/ponggame/static/media/game-over.f945164c.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.142d7881.js",
+    "static/js/2.39cfe338.chunk.js",
+    "static/css/main.77eec57a.chunk.css",
+    "static/js/main.a14c7b84.chunk.js"
+  ]
+}
