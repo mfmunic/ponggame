@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
-import Score from './Score';
+import React, { Component } from "react";
 
-import incoming from '../assets/sounds/ball-incoming.mp3';
-import outgoing from '../assets/sounds/ball-outgoing.mp3';
-import gameOver from '../assets/sounds/game-over.mp3';
+import Score from "./Score";
+import LoseScreen from "./LoseScreen";
+import Temp from "./Temp";
+
+import incoming from "../assets/sounds/ball-incoming.mp3";
+import outgoing from "../assets/sounds/ball-outgoing.mp3";
+import gameOver from "../assets/sounds/game-over.mp3";
 
 class SPGame extends Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class SPGame extends Component {
       returnTimerLength: 1000,
       maxCompRet: 800,
       minCompRet: 600,
+      userSwing: 0,
     };
   }
 
@@ -26,7 +30,8 @@ class SPGame extends Component {
   outgoingSound = new Audio(outgoing);
   gameOverSound = new Audio(gameOver);
 
-  _handleKeyDown = (event) => {
+  //  keeping handleKeyDown for testing on the computer purposes
+  handleKeyDown = (event) => {
     const SPACE_KEY = 32;
     switch (event.keyCode) {
       case SPACE_KEY:
@@ -37,16 +42,33 @@ class SPGame extends Component {
     }
   };
 
+  handleMotion = (event) => {
+    if (event.acceleration.x > this.state.userSwing) {
+      this.setState({ userSwing: event.acceleration.x });
+    }
+    if (event.rotationRate.alpha >= 200 && this.state.userSwing >= 15) {
+      this.setState({ userSwing: 0 });
+      this.userHitBall();
+    }
+  };
+
   componentDidMount() {
-    document.addEventListener('keydown', this._handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("devicemotion", this.handleMotion, true);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this._handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
+    window.removeEventListener("devicemotion", this.handleMotion, true);
   }
 
   render() {
-    return <Score score={this.state.score} />;
+    return this.state.lost ? (
+      <LoseScreen score={this.state.score} replay={this.replayGame} />
+    ) : (
+      <Score score={this.state.score} served={this.state.servedBall} />
+    );
+    // return <Temp />;
   }
 
   // If the user hits the ball detemine if it is a serve or a volley
@@ -54,18 +76,22 @@ class SPGame extends Component {
   userHitBall = () => {
     // If user hits the ball, we want to clear the returnTimer SetTimeout from triggering.
     clearTimeout(this.returnTimer);
-
-    // Plays sound
     this.incomingSound.play();
 
     if (this.state.servedBall) {
       // Increment Score
-      this.setState({ score: this.state.score + 1 });
+      this.setState({ score: this.state.score + 1, userSwing: 0 });
       // Every 10 hits quicken the gameplay by 10%
       if (this.state.score % 10 === 0) {
-        const returnTimerLength = Math.round(this.state.returnTimerLength - this.state.returnTimerLength * 0.1);
-        const maxCompRet = Math.round(this.state.maxCompRet - this.state.maxCompRet * 0.1);
-        const minCompRet = Math.round(this.state.minCompRet - this.state.minCompRet * 0.1);
+        const returnTimerLength = Math.round(
+          this.state.returnTimerLength - this.state.returnTimerLength * 0.1
+        );
+        const maxCompRet = Math.round(
+          this.state.maxCompRet - this.state.maxCompRet * 0.1
+        );
+        const minCompRet = Math.round(
+          this.state.minCompRet - this.state.minCompRet * 0.1
+        );
 
         this.setState({ returnTimerLength, maxCompRet, minCompRet });
       }
@@ -75,7 +101,8 @@ class SPGame extends Component {
     }
 
     // Disable user
-    document.removeEventListener('keydown', this._handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
+    window.removeEventListener("devicemotion", this.handleMotion, true);
 
     // Sends ball to computer
     this.compRetBall();
@@ -83,30 +110,44 @@ class SPGame extends Component {
 
   // Computer will wait a random number within a range before allowing sending ball back
   compRetBall = () => {
-    // Random time chosen for setTimeout
     const { maxCompRet, minCompRet } = this.state;
-    const compReactTime = Math.round(Math.random() * (maxCompRet - minCompRet) + minCompRet);
+    const compReactTime = Math.round(
+      Math.random() * (maxCompRet - minCompRet) + minCompRet
+    );
 
     // At the end of the timeout the computer hits the ball back to the user
     setTimeout(() => {
-      // Plays sound
       this.outgoingSound.play();
-
-      // Hit's back to user and starts returnTimer
       this.watchForUser();
     }, compReactTime);
   };
 
   // Allows User to hit the ball again within alloted time.
   watchForUser = () => {
-    document.addEventListener('keydown', this._handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("devicemotion", this.handleMotion, true);
 
     //  If this is not cancelled by userHitBall, the user is a loser.
     this.returnTimer = setTimeout(() => {
       this.setState({ lost: true });
       this.gameOverSound.play();
-      document.removeEventListener('keydown', this._handleKeyDown);
+      document.removeEventListener("keydown", this.handleKeyDown);
+      window.removeEventListener("devicemotion", this.handleMotion, true);
     }, this.state.returnTimerLength);
+  };
+
+  replayGame = () => {
+    document.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("devicemotion", this.handleMotion, true);
+    this.setState({
+      score: 0,
+      lost: false,
+      servedBall: false,
+      returnTimerLength: 1000,
+      maxCompRet: 800,
+      minCompRet: 600,
+      userSwing: 0,
+    });
   };
 }
 

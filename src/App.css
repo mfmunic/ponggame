@@ -25,3 +25,66 @@
   color: white;
   font-size: calc(300px + 2vmin);
 }
+
+.instDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+}
+
+.linebreak {
+  display: flex;
+}
+
+.linebreak_dot {
+  width: 10px;
+  height: 10px;
+  margin: 20px 10px;
+}
+
+.linebreak_dot-blue {
+  background-color: #47abdf;
+}
+
+.linebreak_dot-white {
+  background-color: #fff;
+}
+
+.linebreak_dot-yellow {
+  background-color: #f4ba41;
+}
+
+.instructions {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.loseScreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loseScreen_score-text {
+  color: white;
+  font-size: 32px;
+}
+
+.loseScreen_score-number {
+  color: white;
+  font-size: 132px;
+  padding-bottom: 16px;
+}
+
+.loseScreen_replayButton {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background-color: white;
+  color: black;
+  font-size: 32px;
+}
