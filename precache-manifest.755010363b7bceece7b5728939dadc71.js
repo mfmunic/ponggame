@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ffbc9223a7343758c0ab628cfffc7a4",
+    "revision": "e38c01c0a470e7a7f6b946bb608ed27a",
     "url": "/ponggame/index.html"
   },
   {
-    "revision": "32e86f39b1786f50095a",
+    "revision": "4b9e092c04da96951828",
     "url": "/ponggame/static/css/main.77eec57a.chunk.css"
   },
   {
-    "revision": "5cb326d792c5e5b23b7a",
-    "url": "/ponggame/static/js/2.39cfe338.chunk.js"
+    "revision": "308100dc0125365f6ba8",
+    "url": "/ponggame/static/js/2.a980e5fa.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/ponggame/static/js/2.39cfe338.chunk.js.LICENSE.txt"
+    "url": "/ponggame/static/js/2.a980e5fa.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "32e86f39b1786f50095a",
-    "url": "/ponggame/static/js/main.a14c7b84.chunk.js"
+    "revision": "4b9e092c04da96951828",
+    "url": "/ponggame/static/js/main.13c3266a.chunk.js"
   },
   {
     "revision": "9bfcfa8adc741f40d006",
