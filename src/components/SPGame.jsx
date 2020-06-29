@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Score from "./Score";
 import LoseScreen from "./LoseScreen";
-import Temp from "./Temp";
+// import Temp from "./Temp";
 
 import incoming from "../assets/sounds/ball-incoming.mp3";
 import outgoing from "../assets/sounds/ball-outgoing.mp3";
@@ -53,6 +53,10 @@ class SPGame extends Component {
   };
 
   componentDidMount() {
+    // This addresses a bug where the sound was not playing the first time.
+    this.incomingSound.load();
+    this.outgoingSound.load();
+    this.gameOverSound.load();
     document.addEventListener("keydown", this.handleKeyDown);
     window.addEventListener("devicemotion", this.handleMotion, true);
   }
